@@ -1,0 +1,22 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: engineerd/setup-kind@v0.5.0
+        with:
+          config: kind/kind.yaml
+      - name: Deploy resources
+        run: |
+          kubectl apply -f kind/ingress-controller.yaml
+          kubectl apply -f httpbin.yaml
+          kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=180s
+          kubectl apply -f fizzbuzz-ingress.yaml
+      - name: Test
+        run: |
+          sleep 20 # wait for nginx to be updated
+          ./kind/test.sh
