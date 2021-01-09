@@ -14,7 +14,7 @@ jobs:
         run: |
           kubectl apply -f kind/ingress-controller.yaml
           kubectl apply -f httpbin.yaml
-          kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=90s
+          kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=120s
           kubectl apply -f fizzbuzz-ingress.yaml
       - name: Test
         run: |
