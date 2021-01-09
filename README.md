@@ -8,7 +8,7 @@ Deploy all resources with `kubectl apply -f .`.
 Try it out:
 
 ```
-$ for i in `seq 1 20`; do curl -s http://<endpoint>/$i | jq .args.response; done                            
+$ for i in `seq 1 20`; do curl -s http://<endpoint>/$i | jq .args.response; done
 "1"
 "2"
 "fizz"
@@ -28,7 +28,7 @@ $ for i in `seq 1 20`; do curl -s http://<endpoint>/$i | jq .args.response; done
 "17"
 "fizz"
 "19"
-"buzz
+"buzz"
 ```
 
 ## Why?
