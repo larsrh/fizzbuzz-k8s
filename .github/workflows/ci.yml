@@ -18,4 +18,5 @@ jobs:
           kubectl apply -f fizzbuzz-ingress.yaml
       - name: Test
         run: |
+          sleep 20 # wait for nginx to be updated
           ./kind/test.sh
