@@ -16,7 +16,7 @@ jobs:
           kubectl apply -f httpbin.yaml
           kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=180s
           kubectl apply -f fizzbuzz-ingress.yaml
+      - name: Wait for nginx to be updated
+        run: sleep 20
       - name: Test
-        run: |
-          sleep 20 # wait for nginx to be updated
-          ./kind/test.sh
+        run: ./kind/test.sh

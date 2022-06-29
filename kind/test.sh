@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -x
 set -eo pipefail
 
 rm -f ./kind/actual
