@@ -15,6 +15,6 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
-  image: kindest/node:v1.18.8
+  image: kindest/node:v1.24.2
 - role: worker
-  image: kindest/node:v1.18.8
+  image: kindest/node:v1.24.2

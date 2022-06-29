@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: fizzbuzz-15
@@ -6,15 +6,39 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /get?response=fizzbuzz
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
       - path: "/([0369]|[147][0369]*([147][0369]*[258][0369]*)*([147][0369]*[147]|[258])|[258][0369]*([258][0369]*[147][0369]*)*([258][0369]*[258]|[147]))*(0|[147][0369]*([147][0369]*[258][0369]*)*5|[258][0369]*([258][0369]*[147][0369]*)*[258][0369]*5)$"
+        pathType: Prefix
         backend:
-          serviceName: httpbin
-          servicePort: 80
+          service:
+            name: httpbin
+            port:
+              number: 80
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fizzbuzz-15
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /get?response=fizzbuzz
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: "/([0369]|[147][0369]*([147][0369]*[258][0369]*)*([147][0369]*[147]|[258])|[258][0369]*([258][0369]*[147][0369]*)*([258][0369]*[258]|[147]))*(0|[147][0369]*([147][0369]*[258][0369]*)*5|[258][0369]*([258][0369]*[147][0369]*)*[258][0369]*5)$"
+        pathType: Prefix
+        backend:
+          service:
+            name: httpbin
+            port:
+              number: 80
+---
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: fizzbuzz-5
@@ -22,15 +46,19 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /get?response=buzz
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
       - path: "/.*[05]$"
+        pathType: Prefix
         backend:
-          serviceName: httpbin
-          servicePort: 80
+          service:
+            name: httpbin
+            port:
+              number: 80
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: fizzbuzz-3
@@ -38,15 +66,19 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /get?response=fizz
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
       - path: "/([0369]|[147][0369]*[258]|(([258]|[147][0369]*[147])([0369]|[258][0369]*[147])*([147]|[258][0369]*[258])))+$"
+        pathType: Prefix
         backend:
-          serviceName: httpbin
-          servicePort: 80
+          service:
+            name: httpbin
+            port:
+              number: 80
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: fizzbuzz-none
@@ -54,10 +86,14 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /get?response=$1
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
       - path: "/(.+)$"
+        pathType: Prefix
         backend:
-          serviceName: httpbin
-          servicePort: 80
+          service:
+            name: httpbin
+            port:
+              number: 80
